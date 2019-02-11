@@ -11,7 +11,7 @@ server.route([
     method: 'GET',
     path: '/',
     handler: function(request, reply) {
-      return('Hello world from hapi');
+      return('Hapi returning a GET resquest from server');
     }
   }
 ]);
@@ -20,6 +20,7 @@ const init = async () => {
   await server.start();
   console.log(`Server running at: ${server.info.uri}`);
 };
+
 
 process.on('unhandledRejection', (err) => {
   console.log(err);
