@@ -1,18 +1,29 @@
 var Hapi = require('hapi');
 
-var server = new Hapi.Server();
-server.connection({ port: 8080 });
+var server = new Hapi.Server({
+  port: 3000,
+  host: 'localhost'
+});
+
 
 server.route([
   {
     method: 'GET',
     path: '/',
     handler: function(request, reply) {
-      reply('Hello world from hapi');
+      return('Hello world from hapi');
     }
   }
 ]);
 
-server.start(function(err) {
-  console.log('Hapi is listening to http://localhost:8080');
+const init = async () => {
+  await server.start();
+  console.log(`Server running at: ${server.info.uri}`);
+};
+
+process.on('unhandledRejection', (err) => {
+  console.log(err);
+  process.exit(1);
 });
+
+init();
